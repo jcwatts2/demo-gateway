@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: message-service-a
+            uri: ${SERVICE_A_URI}
+            predicates:
+              - Path=/message/a
+            filters:
+              - RewritePath=/.*,/a/message
+          - id: message-service-b
+            uri: ${SERVICE_B_URI}
+            predicates:
+              - Path=/message/b
+            filters:
+              - RewritePath=/.*,/b/message
+          - id: message-service-c
+            uri: ${SERVICE_C_URI}
+            predicates:
+              - Path=/message/c
+            filters:
+              - RewritePath=/.*,/c/message
